@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The "Carry-Over" Problem in Pronunciation Teaching</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover {
+      transition: all 0.25s ease-in-out;
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(99, 102, 241, 0.2);
+    }
+    .tab-active {
+      background-color: #4f46e5;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+    }
+    .badge-glow {
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+  <!-- Top Navigation Header -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30">
+            <i class="fa-solid fa-comments"></i>
+          </div>
+          <div>
+            <span class="text-xs font-semibold tracking-wider text-indigo-400 uppercase">Avery & Ehrlich (Ch. 14)</span>
+            <h1 class="text-lg font-bold text-white leading-tight">The "Carry-Over" Problem</h1>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="hidden md:flex space-x-1 bg-slate-800/80 p-1 rounded-xl border border-slate-700/50 text-sm font-medium">
+          <button onclick="switchTab('slides')" id="tab-btn-slides" class="nav-btn px-4 py-2 rounded-lg transition-all flex items-center gap-2 tab-active">
+            <i class="fa-solid fa-book-open"></i> Course Slides
+          </button>
+          <button onclick="switchTab('simulator')" id="tab-btn-simulator" class="nav-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-700/50 flex items-center gap-2">
+            <i class="fa-solid fa-flask"></i> Classroom Simulator
+          </button>
+          <button onclick="switchTab('lab')" id="tab-btn-lab" class="nav-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-700/50 flex items-center gap-2">
+            <i class="fa-solid fa-sliders"></i> Technique Lab
+          </button>
+          <button onclick="switchTab('quiz')" id="tab-btn-quiz" class="nav-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-700/50 flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap"></i> Knowledge Quiz
+          </button>
+        </nav>
+
+        <!-- Action / Quick Info Badge -->
+        <div class="hidden sm:flex items-center gap-2 bg-indigo-950/60 border border-indigo-800/50 px-3 py-1.5 rounded-full text-xs text-indigo-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          University TESOL Workshop
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Bar -->
+    <div class="md:hidden border-t border-slate-800 bg-slate-900 px-2 py-2 flex justify-around text-xs font-medium">
+      <button onclick="switchTab('slides')" id="mob-tab-btn-slides" class="flex flex-col items-center gap-1 text-indigo-400 py-1 px-2">
+        <i class="fa-solid fa-book-open text-base"></i> Slides
+      </button>
+      <button onclick="switchTab('simulator')" id="mob-tab-btn-simulator" class="flex flex-col items-center gap-1 text-slate-400 py-1 px-2">
+        <i class="fa-solid fa-flask text-base"></i> Simulator
+      </button>
+      <button onclick="switchTab('lab')" id="mob-tab-btn-lab" class="flex flex-col items-center gap-1 text-slate-400 py-1 px-2">
+        <i class="fa-solid fa-sliders text-base"></i> Tech Lab
+      </button>
+      <button onclick="switchTab('quiz')" id="mob-tab-btn-quiz" class="flex flex-col items-center gap-1 text-slate-400 py-1 px-2">
+        <i class="fa-solid fa-graduation-cap text-base"></i> Quiz
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: INTERACTIVE COURSE SLIDES -->
+    <!-- ========================================================================= -->
+    <section id="tab-slides" class="tab-content flex-1 flex flex-col space-y-6">
+      <!-- Slide Control Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg">
+        <div>
+          <div class="text-xs text-indigo-400 font-semibold uppercase tracking-wider">Interactive Presentation Deck</div>
+          <h2 id="slide-title-header" class="text-xl font-bold text-white">1. The "Carry-Over" Problem</h2>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400 font-mono bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
+            Slide <span id="current-slide-num" class="text-indigo-400 font-bold">1</span> of 8
+          </span>
+          <div class="flex gap-2">
+            <button onclick="prevSlide()" id="prev-slide-btn" class="p-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 rounded-lg border border-slate-700 transition">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="nextSlide()" id="next-slide-btn" class="p-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-white transition shadow-md shadow-indigo-600/30">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide Dots / Navigation Strip -->
+      <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-none" id="slide-dots-container">
+        <!-- Dots injected via JS -->
+      </div>
+
+      <!-- Slide Viewport Container -->
+      <div id="slide-container" class="flex-1 relative min-h-[480px]">
+        
+        <!-- SLIDE 1: What is the Carry-Over Problem & Why does it happen? -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col justify-between h-full">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold mb-3">
+              <i class="fa-solid fa-triangle-exclamation"></i> The Core Challenge
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">What is the "Carry-Over" Problem?</h3>
+            <p class="text-slate-300 mt-2 text-base leading-relaxed">
+              One of the most serious challenges facing English pronunciation teachers in language classrooms today.
+            </p>
+
+            <div class="mt-6 bg-slate-800/80 border-l-4 border-indigo-500 p-4 rounded-r-xl shadow-inner">
+              <p class="text-indigo-200 font-medium text-lg italic">
+                "Students achieve near-standard pronunciation during class time, but they revert to their former non-standard patterns as soon as they leave the classroom."
+              </p>
+            </div>
+
+            <h4 class="text-lg font-bold text-white mt-8 mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-400"></i> Why Does This Happen? (4 Key Factors)
+            </h4>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="flex items-center gap-3 text-indigo-400 font-bold mb-1">
+                  <i class="fa-solid fa-fire text-amber-400"></i> Motivation
+                </div>
+                <p class="text-sm text-slate-300">Students may not see why accuracy in pronunciation truly matters for communication.</p>
+              </div>
+
+              <div class="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="flex items-center gap-3 text-indigo-400 font-bold mb-1">
+                  <i class="fa-solid fa-bullseye text-emerald-400"></i> Sensitivity to Accuracy
+                </div>
+                <p class="text-sm text-slate-300">Some students prioritize continuous fluency over linguistic accuracy when speaking.</p>
+              </div>
+
+              <div class="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="flex items-center gap-3 text-indigo-400 font-bold mb-1">
+                  <i class="fa-solid fa-user-clock text-sky-400"></i> Age
+                </div>
+                <p class="text-sm text-slate-300">Older learners often face entrenched motor habits and established phonological filters.</p>
+              </div>
+
+              <div class="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="flex items-center gap-3 text-indigo-400 font-bold mb-1">
+                  <i class="fa-solid fa-brain text-purple-400"></i> Education & Training
+                </div>
+                <p class="text-sm text-slate-300">Students may simply have never learned <em>how</em> to self-monitor in real time.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-r from-emerald-950/80 to-teal-950/80 border border-emerald-500/30 p-4 rounded-xl flex items-center justify-between text-emerald-200">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-xl">
+                🌍
+              </div>
+              <div>
+                <div class="text-xs uppercase font-bold tracking-wider text-emerald-400">The Solution</div>
+                <div class="font-bold text-white text-sm sm:text-base">Self-Correction & Self-Monitoring Strategies</div>
+              </div>
+            </div>
+            <span class="text-xs italic hidden sm:inline-block">"The goal is not just to improve in class — it's to improve everywhere!"</span>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: Why Is This Important? (8 Reasons) -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 hidden h-full flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-2">
+              <i class="fa-solid fa-star"></i> Pedagogical Value
+            </div>
+            <h3 class="text-2xl font-bold text-white">Why Self-Monitoring Matters: 8 Reasons</h3>
+            <p class="text-slate-300 text-sm mt-1">Research-backed rationale from Avery & Ehrlich (Ch. 14):</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+              <!-- Reason 1 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">1. Independence</div>
+                <div class="text-sm font-semibold text-white">No Teacher Required</div>
+                <p class="text-xs text-slate-400 mt-1">You can practice and improve anywhere, at any time.</p>
+              </div>
+              <!-- Reason 2 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">2. Carry-Over</div>
+                <div class="text-sm font-semibold text-white">Class to Real World</div>
+                <p class="text-xs text-slate-400 mt-1">Solves the drop-off effect outside classroom walls.</p>
+              </div>
+              <!-- Reason 3 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-1">3. Confidence</div>
+                <div class="text-sm font-semibold text-white">Speech Control</div>
+                <p class="text-xs text-slate-400 mt-1">Learners lose fear of making mistakes in public.</p>
+              </div>
+              <!-- Reason 4 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">4. Fluency</div>
+                <div class="text-sm font-semibold text-white">Natural Flow</div>
+                <p class="text-xs text-slate-400 mt-1">Smooth self-correction without stopping discourse.</p>
+              </div>
+              <!-- Reason 5 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-purple-400 uppercase tracking-wider mb-1">5. Lifelong Learning</div>
+                <div class="text-sm font-semibold text-white">Beyond Course End</div>
+                <p class="text-xs text-slate-400 mt-1">Empowers autonomous long-term skill refinement.</p>
+              </div>
+              <!-- Reason 6 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-pink-400 uppercase tracking-wider mb-1">6. Teaching Skill</div>
+                <div class="text-sm font-semibold text-white">Peer & Future Impact</div>
+                <p class="text-xs text-slate-400 mt-1">Future teachers pass monitoring skills to students.</p>
+              </div>
+              <!-- Reason 7 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-teal-400 uppercase tracking-wider mb-1">7. Career Growth</div>
+                <div class="text-sm font-semibold text-white">Professional Clarity</div>
+                <p class="text-xs text-slate-400 mt-1">Clearer spoken English enhances workplace success.</p>
+              </div>
+              <!-- Reason 8 -->
+              <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 rounded-xl hover:border-indigo-500/50 transition">
+                <div class="text-xs font-bold text-rose-400 uppercase tracking-wider mb-1">8. Intelligibility</div>
+                <div class="text-sm font-semibold text-white">Ultimate Goal</div>
+                <p class="text-xs text-slate-400 mt-1">Ensures effortless understanding by listeners.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center p-3 rounded-xl bg-slate-800/40 text-slate-300 italic text-sm border border-slate-700/40 mt-4">
+            🌱 "The goal is not to be perfect. The goal is to be aware and to keep improving."
+          </div>
+        </div>
+
+        <!-- SLIDE 3: What is Self-Correction? -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 hidden h-full flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+                <i class="fa-solid fa-wrench"></i> Stage 1: Assisted Awareness
+              </span>
+              <span class="text-xs text-slate-400">Dependent on External Feedback</span>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white">What is Self-Correction?</h3>
+            <p class="text-slate-300 mt-1">
+              The ability to correct oneself <strong class="text-indigo-400">after</strong> a pronunciation error has been pointed out by an instructor or peer.
+            </p>
+
+            <!-- Step-by-Step Flowchart -->
+            <div class="mt-6">
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">The 4-Step Self-Correction Process:</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center relative">
+                  <div class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">1</div>
+                  <div class="font-bold text-white text-sm">Notice</div>
+                  <div class="text-xs text-slate-400 mt-0.5">Teacher/peer points out error</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center">
+                  <div class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">2</div>
+                  <div class="font-bold text-white text-sm">Pause</div>
+                  <div class="text-xs text-slate-400 mt-0.5">Student stops briefly</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center">
+                  <div class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">3</div>
+                  <div class="font-bold text-white text-sm">Correct</div>
+                  <div class="text-xs text-slate-400 mt-0.5">Repeats target sound accurately</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center">
+                  <div class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">4</div>
+                  <div class="font-bold text-white text-sm">Continue</div>
+                  <div class="text-xs text-slate-400 mt-0.5">Resumes communication</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dialogue Example -->
+            <div class="mt-6 bg-slate-900/80 rounded-xl p-4 border border-slate-700 space-y-2 text-sm">
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Classroom Scenario Example:</div>
+              <div class="flex gap-2 text-indigo-300">
+                <span class="font-bold text-indigo-400">Teacher:</span>
+                <span>"You said <span class="line-through text-red-400 font-semibold">'wiff'</span> — can you try that again?"</span>
+              </div>
+              <div class="flex gap-2 text-slate-200 pl-4 border-l-2 border-indigo-500">
+                <span class="font-bold text-emerald-400">Student:</span>
+                <span>"Oh, I said 'wiff' instead of 'with'. Let me try: <strong class="text-emerald-400">'with'</strong>."</span>
+              </div>
+              <div class="flex gap-2 text-indigo-300">
+                <span class="font-bold text-indigo-400">Teacher:</span>
+                <span>"Perfect!"</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 flex items-center gap-3">
+            <span class="text-xl">🔧</span>
+            <p class="text-sm text-slate-300"><strong class="text-white">Key Insight:</strong> Self-correction is the foundational first step towards full independence.</p>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: What is Self-Monitoring? -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 hidden h-full flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+                <i class="fa-solid fa-ear-listen"></i> Stage 2: Autonomous Monitoring
+              </span>
+              <span class="text-xs text-emerald-400 font-semibold">Fully Independent</span>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white">What is Self-Monitoring?</h3>
+            <p class="text-slate-300 mt-1">
+              The ability to internalize criteria, listen to oneself, and recognize errors <strong class="text-emerald-400">without anyone pointing them out</strong>.
+            </p>
+
+            <!-- Step-by-Step Flowchart -->
+            <div class="mt-6">
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">The 5-Step Autonomous Cycle:</h4>
+              <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                <div class="bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-center">
+                  <div class="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">1</div>
+                  <div class="font-bold text-white text-xs">Speak</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Produces utterance</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-center">
+                  <div class="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">2</div>
+                  <div class="font-bold text-white text-xs">Listen</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Self-monitors output</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-center">
+                  <div class="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">3</div>
+                  <div class="font-bold text-white text-xs">Notice</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Catches error solo</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-center">
+                  <div class="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">4</div>
+                  <div class="font-bold text-white text-xs">Correct</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Adjusts articulators</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-center col-span-2 sm:col-span-1">
+                  <div class="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mx-auto mb-1">5</div>
+                  <div class="font-bold text-white text-xs">Continue</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Flows naturally</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dialogue Example -->
+            <div class="mt-6 bg-slate-900/80 rounded-xl p-4 border border-slate-700 space-y-2 text-sm">
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Autonomous Student Thought & Action:</div>
+              <div class="space-y-1">
+                <p class="text-slate-300"><span class="font-bold text-indigo-400">Student speaks:</span> "I have <span class="text-amber-400">tree</span> brothers..."</p>
+                <p class="text-slate-400 text-xs italic pl-4"><i class="fa-solid fa-headphone-simple text-emerald-400"></i> Internal Monitor: "Wait, I said 'tree' but I meant 'three'..."</p>
+                <p class="text-emerald-300 pl-4"><span class="font-bold text-emerald-400">Self-correction:</span> "...I have <strong class="text-emerald-400 font-extrabold underline">THREE</strong> brothers..."</p>
+                <p class="text-slate-300"><span class="font-bold text-indigo-400">Continues seamlessly:</span> "...and one sister."</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-emerald-950/40 p-3 rounded-xl border border-emerald-800/40 flex items-center gap-3">
+            <span class="text-xl">👂</span>
+            <p class="text-sm text-emerald-200"><strong class="text-white">The Ultimate Goal:</strong> Self-monitoring enables learners to improve independently in any real-world setting.</p>
+          </div>
+        </div>
+
+        <!-- SLIDE 5: The Four Key Areas -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 hidden h-full flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-2">
+              <i class="fa-solid fa-cubes"></i> Pedagogical Foundations
+            </div>
+            <h3 class="text-2xl font-bold text-white">The Four Key Areas</h3>
+            <p class="text-slate-300 text-sm mt-1">To develop self-correction & monitoring, teachers must focus on these four pillars (Avery & Ehrlich):</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div class="bg-slate-800/60 border border-slate-700/80 p-4 rounded-xl flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 text-lg">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">1. Motivation</h4>
+                  <p class="text-xs text-slate-300 mt-1">Students must understand <em>why</em> oral production accuracy is critical. Without intrinsic motivation, effort drops off.</p>
+                </div>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700/80 p-4 rounded-xl flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 text-lg">
+                  <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">2. Explanations</h4>
+                  <p class="text-xs text-slate-300 mt-1">Provide a balanced mix of description and physical demonstration so students visualize sound formation.</p>
+                </div>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700/80 p-4 rounded-xl flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 text-lg">
+                  <i class="fa-solid fa-repeat"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">3. Practice</h4>
+                  <p class="text-xs text-slate-300 mt-1">Provide appropriate, varied, and adequate practice opportunities to build muscle memory and vocal confidence.</p>
+                </div>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700/80 p-4 rounded-xl flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 text-lg">
+                  <i class="fa-solid fa-comments"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">4. Feedback</h4>
+                  <p class="text-xs text-slate-300 mt-1">Deliver supportive, accurate teacher and peer feedback to guide students toward target sound targets.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center p-3 rounded-xl bg-slate-800/40 text-slate-300 text-sm border border-slate-700/40">
+            🏗️ "These four areas form the essential foundation for building self-correcting learners."
+          </div>
+        </div>
+
+        <!-- SLIDE 6: Specific Self-Correction Techniques -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 hidden h-full flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold mb-2">
+              <i class="fa-solid fa-toolbox"></i> Classroom Tools
+            </div>
+            <h3 class="text-2xl font-bold text-white">6 Self-Correction Techniques</h3>
+            <p class="text-slate-300 text-sm">Practical instructional tactics from Avery & Ehrlich (Ch. 14):</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+              <div class="bg-slate-800/60 border border-slate-700 p-3 rounded-xl">
+                <div class="font-bold text-indigo-400 text-sm mb-1"><i class="fa-solid fa-thumbtack"></i> 1. The "Peg" System</div>
+                <p class="text-xs text-slate-300">Use simple tactile anchors. e.g., for /w/ vs /v/: /w/ = no teeth touch; /v/ = top teeth touch bottom lip.</p>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700 p-3 rounded-xl">
+                <div class="font-bold text-sky-400 text-sm mb-1"><i class="fa-solid fa-shoe-prints"></i> 2. "Walk" Through Sounds</div>
+                <p class="text-xs text-slate-300">Guide students step-by-step like a dance: lower teeth to lower lip, tense lip slightly, blow air out.</p>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700 p-3 rounded-xl">
+                <div class="font-bold text-emerald-400 text-sm mb-1"><i class="fa-solid fa-arrows-left-right"></i> 3. Sound Contrast</div>
+                <p class="text-xs text-slate-300">Say correct and incorrect versions back-to-back alternately (e.g., "we" / "ve" / "we" / "ve").</p>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700 p-3 rounded-xl">
+                <div class="font-bold text-amber-400 text-sm mb-1"><i class="fa-solid fa-palette"></i> 4. Code Words</div>
+                <p class="text-xs text-slate-300">Associate vowels with colors: /iː/ = green, /ɪ/ = pink, /æ/ = black, /ʌ/ = mustard.</p>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700 p-3 rounded-xl">
+                <div class="font-bold text-purple-400 text-sm mb-1"><i class="fa-solid fa-font"></i> 5. Letter Articulation</div>
+                <p class="text-xs text-slate-300">Link shape of letter 'W' (2 rounded lips) vs 'V' (single point touching lower lip).</p>
+              </div>
+
+              <div class="bg-slate-800/60 border border-slate-700 p-3 rounded-xl">
+                <div class="font-bold text-pink-400 text-sm mb-1"><i class="fa-solid fa-utensils"></i> 6. Analogies</div>
+                <p class="text-xs text-slate-300">Use mental images: shape the tongue like a "spoon" held under the upper front teeth for /θ/ & /ð/.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center p-3 rounded-xl bg-slate-800/40 text-slate-300 text-xs border border-slate-700/40">
+            🎯 "Different techniques work for different learners. Try them all to find what clicks!"
+          </div>
+        </div>
+
+        <!-- SLIDE 7: Teacher Feedback & 'Reminding' Techniques -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 hidden h-full flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-2">
+              <i class="fa-solid fa-comment-dots"></i> Teacher Shift Strategy
+            </div>
+            <h3 class="text-2xl font-bold text-white">Teacher Feedback & 'Reminding'</h3>
+            <p class="text-slate-300 text-sm mt-1">
+              Once a student CAN produce the correct sound, stop modeling it directly! Instead, use <strong class="text-indigo-400">'Reminding' techniques</strong> to cue them to correct themselves.
+            </p>
+
+            <div class="space-y-3 mt-4">
+              <div class="bg-slate-800/80 border-l-4 border-indigo-500 p-3.5 rounded-r-xl">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-white text-sm">1. Questioning Repetition</h4>
+                  <span class="text-xs text-indigo-400 font-mono">Rising Intonation</span>
+                </div>
+                <p class="text-xs text-slate-300 mt-1">Repeat the student's incorrect sound with a questioning tone.</p>
+                <div class="mt-2 text-xs bg-slate-900/80 p-2 rounded text-indigo-200 font-mono">
+                  Teacher: "Wiff a friend? ↗"
+                </div>
+              </div>
+
+              <div class="bg-slate-800/80 border-l-4 border-sky-500 p-3.5 rounded-r-xl">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-white text-sm">2. Query the Word</h4>
+                  <span class="text-xs text-sky-400 font-mono">Question Slot</span>
+                </div>
+                <p class="text-xs text-slate-300 mt-1">Replace the mispronounced word with a question word.</p>
+                <div class="mt-2 text-xs bg-slate-900/80 p-2 rounded text-sky-200 font-mono">
+                  Teacher: "He went WHAT a friend?"
+                </div>
+              </div>
+
+              <div class="bg-slate-800/80 border-l-4 border-purple-500 p-3.5 rounded-r-xl">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-white text-sm">3. Exaggerate the Error</h4>
+                  <span class="text-xs text-purple-400 font-mono">Acoustic Highlight</span>
+                </div>
+                <p class="text-xs text-slate-300 mt-1">Repeat the error in an exaggerated manner so the flaw is unmistakable.</p>
+                <div class="mt-2 text-xs bg-slate-900/80 p-2 rounded text-purple-200 font-mono">
+                  Teacher: "Wffffff a friend?"
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs text-slate-300 flex items-center justify-between">
+            <span>🔄 <strong>Goal:</strong> Shift responsibility from teacher to student!</span>
+            <span class="text-slate-400 hidden sm:inline">If error persists after cued attempts, explain source of difficulty.</span>
+          </div>
+        </div>
+
+        <!-- SLIDE 8: Self-Monitoring Stages & Proficiency Levels -->
+        <div class="slide-card glass-card rounded-2xl p-6 sm:p-8 space-y-6 hidden h-full flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-2">
+              <i class="fa-solid fa-layer-group"></i> Progression & Differentiation
+            </div>
+            <h3 class="text-2xl font-bold text-white">Stages & Proficiency Dynamics</h3>
+
+            <!-- Stages Grid -->
+            <div class="mt-4">
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">3 Stages of Self-Monitoring Mastery:</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+                  <div class="text-xs font-bold text-indigo-400">Stage 1: Production</div>
+                  <p class="text-xs text-slate-300 mt-1">Attempts target form and evaluates how close output is to target.</p>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+                  <div class="text-xs font-bold text-sky-400">Stage 2: Contextualized</div>
+                  <p class="text-xs text-slate-300 mt-1">Listens to audio samples to identify correct/incorrect forms in context.</p>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+                  <div class="text-xs font-bold text-emerald-400">Stage 3: Communicative</div>
+                  <p class="text-xs text-slate-300 mt-1">Anticipates error spots ahead of time during free speech.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Proficiency Level Differences -->
+            <div class="mt-6 bg-slate-900/90 border border-slate-800 rounded-xl p-4">
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Monitoring Focus by Proficiency Level:</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <div class="font-bold text-amber-400 text-sm mb-1">Basic Students</div>
+                  <p class="text-slate-300">Focus on global features: <strong class="text-white">Intonation, Phrasing, Rhythm</strong> (these have the greatest overall effect on comprehensibility).</p>
+                </div>
+                <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <div class="font-bold text-purple-400 text-sm mb-1">More Proficient Students</div>
+                  <p class="text-slate-300">Focus on <strong class="text-white">Specific Segments</strong> (individual consonant and vowel sound distinctions).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-amber-950/30 p-3 rounded-xl border border-amber-800/30 text-xs text-amber-200 flex items-center gap-2">
+            <i class="fa-solid fa-lightbulb text-amber-400 text-base"></i>
+            <span><strong>Teacher Tip:</strong> Students with long-entrenched errors must first standardly believe accuracy matters and accept personal ownership.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: INTERACTIVE CLASSROOM SIMULATOR -->
+    <!-- ========================================================================= -->
+    <section id="tab-simulator" class="tab-content hidden flex-1 flex flex-col space-y-6">
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-2">
+              <i class="fa-solid fa-flask"></i> Practicum Simulation Engine
+            </div>
+            <h2 class="text-2xl font-bold text-white">Classroom Carry-Over Simulator</h2>
+            <p class="text-slate-400 text-sm mt-1">Act as the English pronunciation instructor! Respond to student pronunciation errors using Avery & Ehrlich's feedback techniques.</p>
+          </div>
+
+          <!-- Scenario Selection Dropdown -->
+          <div class="flex items-center gap-3">
+            <label for="sim-scenario-select" class="text-xs text-slate-400 font-medium whitespace-nowrap">Select Scenario:</label>
+            <select id="sim-scenario-select" onchange="loadScenario(this.value)" class="bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+              <option value="1">Scenario A: The "Wiff" vs "With" (/θ/ sound)</option>
+              <option value="2">Scenario B: "Tree" vs "Three" (Numeral confusion)</option>
+              <option value="3">Scenario C: "We" vs "Ve" (/w/ and /v/ confusion)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Metrics Dashboard -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+          <div class="bg-slate-800/80 border border-slate-700/80 p-3.5 rounded-xl text-center">
+            <div class="text-xs text-slate-400 font-medium">Student Autonomy</div>
+            <div id="metric-independence" class="text-2xl font-black text-indigo-400 mt-1">10%</div>
+            <div class="text-[10px] text-slate-500">Teacher Dependent</div>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700/80 p-3.5 rounded-xl text-center">
+            <div class="text-xs text-slate-400 font-medium">Carry-Over Potential</div>
+            <div id="metric-carryover" class="text-2xl font-black text-emerald-400 mt-1">15%</div>
+            <div class="text-[10px] text-slate-500">Classroom Restricted</div>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700/80 p-3.5 rounded-xl text-center">
+            <div class="text-xs text-slate-400 font-medium">Student Confidence</div>
+            <div id="metric-confidence" class="text-2xl font-black text-sky-400 mt-1">50%</div>
+            <div class="text-[10px] text-slate-500">Hesitant</div>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700/80 p-3.5 rounded-xl text-center">
+            <div class="text-xs text-slate-400 font-medium">Metalinguistic Insight</div>
+            <div id="metric-awareness" class="text-2xl font-black text-amber-400 mt-1">Low</div>
+            <div class="text-[10px] text-slate-500">Needs Cueing</div>
+          </div>
+        </div>
+
+        <!-- Simulated Dialogue Feed -->
+        <div class="mt-6 bg-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-6 min-h-[260px] flex flex-col justify-between">
+          <div id="dialogue-box" class="space-y-4 overflow-y-auto max-h-[320px] pr-2">
+            <!-- Dynamic Dialogue turns inserted here -->
+          </div>
+
+          <!-- Action Control Console -->
+          <div class="mt-6 border-t border-slate-800 pt-4">
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Choose Your Pedagogical Response:</div>
+            <div id="teacher-action-buttons" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <!-- Action buttons populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation Feedback & Analysis Banner -->
+        <div id="sim-feedback-banner" class="mt-4 p-4 rounded-xl bg-indigo-950/50 border border-indigo-800/60 hidden">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-graduation-cap text-indigo-400 text-xl mt-0.5"></i>
+            <div>
+              <h4 id="sim-feedback-title" class="font-bold text-indigo-200 text-sm">Pedagogical Analysis:</h4>
+              <p id="sim-feedback-desc" class="text-xs text-indigo-300 mt-1">Select an action above to see how your feedback impacts student carry-over.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: TECHNIQUE LAB & VISUALIZER -->
+    <!-- ========================================================================= -->
+    <section id="tab-lab" class="tab-content hidden flex-1 flex flex-col space-y-6">
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+        <div class="mb-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold mb-2">
+            <i class="fa-solid fa-sliders"></i> Interactive Workbench
+          </div>
+          <h2 class="text-2xl font-bold text-white">Self-Correction Technique Lab</h2>
+          <p class="text-slate-400 text-sm mt-1">Explore and test the 6 Avery & Ehrlich self-correction strategies interactively.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Technique Selector List -->
+          <div class="space-y-2">
+            <button onclick="selectLabTech('peg')" id="lab-btn-peg" class="lab-nav-btn w-full text-left p-3.5 rounded-xl border border-indigo-500/80 bg-indigo-950/40 text-white flex items-center justify-between transition">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-thumbtack text-indigo-400"></i>
+                <div>
+                  <div class="font-bold text-sm">1. The "Peg" System</div>
+                  <div class="text-[11px] text-slate-400">Simple tactile memory anchors</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+
+            <button onclick="selectLabTech('walk')" id="lab-btn-walk" class="lab-nav-btn w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-300 hover:bg-slate-800 transition">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-shoe-prints text-sky-400"></i>
+                <div>
+                  <div class="font-bold text-sm">2. "Walk" Through Sounds</div>
+                  <div class="text-[11px] text-slate-400">Sequential physical steps</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+
+            <button onclick="selectLabTech('contrast')" id="lab-btn-contrast" class="lab-nav-btn w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-300 hover:bg-slate-800 transition">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-arrows-left-right text-emerald-400"></i>
+                <div>
+                  <div class="font-bold text-sm">3. Sound Contrast</div>
+                  <div class="text-[11px] text-slate-400">Alternating target vs non-standard</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+
+            <button onclick="selectLabTech('codewords')" id="lab-btn-codewords" class="lab-nav-btn w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-300 hover:bg-slate-800 transition">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-palette text-amber-400"></i>
+                <div>
+                  <div class="font-bold text-sm">4. Code Words</div>
+                  <div class="text-[11px] text-slate-400">Color-vowel associations</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+
+            <button onclick="selectLabTech('letters')" id="lab-btn-letters" class="lab-nav-btn w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-300 hover:bg-slate-800 transition">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-font text-purple-400"></i>
+                <div>
+                  <div class="font-bold text-sm">5. Letter Articulation</div>
+                  <div class="text-[11px] text-slate-400">Visual letter shape cues</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+
+            <button onclick="selectLabTech('analogies')" id="lab-btn-analogies" class="lab-nav-btn w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-300 hover:bg-slate-800 transition">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-utensils text-pink-400"></i>
+                <div>
+                  <div class="font-bold text-sm">6. Analogies</div>
+                  <div class="text-[11px] text-slate-400">Imagery & physical metaphors</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+
+          <!-- Interactive Visualization Display Panel -->
+          <div class="lg:col-span-2 glass-card rounded-2xl p-6 border border-slate-700/80 flex flex-col justify-between min-h-[360px]" id="lab-display-container">
+            <!-- Dynamic lab display injected via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: KNOWLEDGE & PEDAGOGY QUIZ -->
+    <!-- ========================================================================= -->
+    <section id="tab-quiz" class="tab-content hidden flex-1 flex flex-col space-y-6">
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Academic Mastery Assessment
+            </div>
+            <h2 class="text-2xl font-bold text-white">Avery & Ehrlich Ch. 14 Quiz</h2>
+            <p class="text-slate-400 text-sm mt-1">Test your understanding of the Carry-Over Problem, self-correction, and monitoring.</p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-400 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 font-mono">
+              Score: <span id="quiz-score" class="text-emerald-400 font-bold">0</span> / 5
+            </span>
+            <button onclick="resetQuiz()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-lg text-slate-300 border border-slate-700 transition">
+              <i class="fa-solid fa-rotate-right"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div class="mt-6 space-y-6" id="quiz-questions-container">
+          <!-- Questions dynamically generated via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-900 py-4 text-center text-xs text-slate-500">
+    Designed for TESOL / University Linguistics & Pronunciation Pedagogy Courses &bull; Based on Avery & Ehrlich (Ch. 14)
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT LOGIC & STATE ENGINE -->
+  <!-- ========================================================================= -->
+  <script>
+    // -------------------------------------------------------------------------
+    // TAB SWITCHING NAVIGATION
+    // -------------------------------------------------------------------------
+    function switchTab(tabId) {
+      // Hide all contents
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+      // Update Desktop Nav Buttons
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('tab-active', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('tab-active');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      // Update Mobile Nav
+      document.querySelectorAll('[id^="mob-tab-btn-"]').forEach(btn => {
+        btn.classList.remove('text-indigo-400');
+        btn.classList.add('text-slate-400');
+      });
+      const mobBtn = document.getElementById('mob-tab-btn-' + tabId);
+      if (mobBtn) {
+        mobBtn.classList.add('text-indigo-400');
+        mobBtn.classList.remove('text-slate-400');
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // SLIDE DECK NAVIGATION ENGINE
+    // -------------------------------------------------------------------------
+    let currentSlide = 1;
+    const totalSlides = 8;
+    const slideTitles = [
+      "1. What is the Carry-Over Problem?",
+      "2. 8 Reasons Why Self-Monitoring Matters",
+      "3. What is Self-Correction?",
+      "4. What is Self-Monitoring?",
+      "5. The Four Key Areas",
+      "6. Specific Self-Correction Techniques",
+      "7. Teacher Feedback & Reminding Techniques",
+      "8. Self-Monitoring Stages & Proficiency Dynamics"
+    ];
+
+    function initSlideDots() {
+      const container = document.getElementById('slide-dots-container');
+      container.innerHTML = '';
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = `px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition border ${
+          i === 1 ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-800/80 border-slate-700/60 text-slate-400 hover:text-white'
+        }`;
+        dot.textContent = `${i}. ${slideTitles[i-1].split('.')[1].trim()}`;
+        dot.onclick = () => goToSlide(i);
+        dot.id = `slide-dot-${i}`;
+        container.appendChild(dot);
+      }
+    }
+
+    function updateSlideUI() {
+      const slideCards = document.querySelectorAll('.slide-card');
+      slideCards.forEach((card, idx) => {
+        if (idx + 1 === currentSlide) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+        } else {
+          card.classList.add('hidden');
+          card.classList.remove('flex');
+        }
+      });
+
+      document.getElementById('current-slide-num').textContent = currentSlide;
+      document.getElementById('slide-title-header').textContent = slideTitles[currentSlide - 1];
+
+      // Update prev/next button states
+      document.getElementById('prev-slide-btn').disabled = (currentSlide === 1);
+      document.getElementById('next-slide-btn').disabled = (currentSlide === totalSlides);
+
+      // Update dots styling
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.getElementById(`slide-dot-${i}`);
+        if (dot) {
+          if (i === currentSlide) {
+            dot.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition border bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-600/30';
+          } else {
+            dot.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition border bg-slate-800/80 border-slate-700/60 text-slate-400 hover:text-white';
+          }
+        }
+      }
+    }
+
+    function goToSlide(slideNum) {
+      if (slideNum >= 1 && slideNum <= totalSlides) {
+        currentSlide = slideNum;
+        updateSlideUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlideUI();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlideUI();
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // CLASSROOM SIMULATOR ENGINE
+    // -------------------------------------------------------------------------
+    const scenarios = {
+      "1": {
+        title: "The 'Wiff' vs 'With' Dilemma",
+        targetSound: "/θ/ (voiceless dental fricative)",
+        initialStudent: "Teacher, yesterday I went to the park wiff my friend.",
+        actions: [
+          {
+            type: "direct",
+            btnLabel: "Direct Model: 'No, say WITH'",
+            desc: "Instructor models the correct sound directly.",
+            studentReply: "Oh, okay... with my friend.",
+            metrics: { independence: 10, carryover: 15, confidence: 45, awareness: "Low" },
+            analysis: "⚠️ <strong>Direct Correction:</strong> The student relies entirely on teacher modeling. They copy you now, but carry-over to real life remains minimal."
+          },
+          {
+            type: "questioning",
+            btnLabel: "Questioning Repetition",
+            desc: "Repeat error with rising intonation: 'Wiff a friend? ↗'",
+            studentReply: "Wait... 'wiff'? Oh! I said 'wiff' instead of 'with'. Let me try: WITH my friend!",
+            metrics: { independence: 65, carryover: 70, confidence: 80, awareness: "High" },
+            analysis: "🌟 <strong>Questioning Repetition ('Reminding'):</strong> Prompted the student to pause, notice, and self-correct! High carry-over value."
+          },
+          {
+            type: "query_word",
+            btnLabel: "Query the Word",
+            desc: "Replace error with question word: 'He went WHAT a friend?'",
+            studentReply: "Ah! 'With'! Yesterday I went to the park WITH my friend.",
+            metrics: { independence: 75, carryover: 80, confidence: 85, awareness: "High" },
+            analysis: "🚀 <strong>Querying the Word:</strong> Excellent 'reminding' cue. Forces student to retrieve articulatory memory autonomously."
+          },
+          {
+            type: "exaggerate",
+            btnLabel: "Exaggerate Error",
+            desc: "Repeat error loudly/exaggerated: 'WFFFFFF a friend?'",
+            studentReply: "(Giggles) Oops! I used my teeth on my lip! WITH a friend!",
+            metrics: { independence: 70, carryover: 75, confidence: 90, awareness: "Very High" },
+            analysis: "😄 <strong>Exaggerating Error:</strong> Makes the physical articulatory flaw obvious in a lighthearted, unforgettable way."
+          }
+        ]
+      },
+      "2": {
+        title: "'Tree' vs 'Three' Numeral Confusion",
+        targetSound: "/θ/ vs /tr/ minimal pair",
+        initialStudent: "I have tree brothers and one sister.",
+        actions: [
+          {
+            type: "direct",
+            btnLabel: "Direct Model: 'Say THREE, not tree'",
+            desc: "Tell them the answer immediately.",
+            studentReply: "Three brothers...",
+            metrics: { independence: 15, carryover: 20, confidence: 50, awareness: "Low" },
+            analysis: "⚠️ <strong>Direct Modeling:</strong> Fast in class, but doesn't build the internal monitoring loop needed for real-world speech."
+          },
+          {
+            type: "questioning",
+            btnLabel: "Questioning Repetition",
+            desc: "Repeat with questioning tone: 'You have TREE brothers? ↗'",
+            studentReply: "Tree? Oh! No, not growing outside! I have THREE brothers!",
+            metrics: { independence: 80, carryover: 85, confidence: 85, awareness: "Very High" },
+            analysis: "🎯 <strong>Questioning Tone:</strong> Sparks immediate semantic and phonological error awareness!"
+          },
+          {
+            type: "query_word",
+            btnLabel: "Query the Word",
+            desc: "Ask: 'You have HOW MANY brothers?'",
+            studentReply: "Oh, I said tree... I mean THREE brothers!",
+            metrics: { independence: 70, carryover: 75, confidence: 80, awareness: "High" },
+            analysis: "👍 <strong>Querying Word:</strong> Standard self-monitoring prompt. The student self-corrects smoothly."
+          },
+          {
+            type: "exaggerate",
+            btnLabel: "Exaggerate Error",
+            desc: "Exaggerate: 'A wooden TREE brother? 🌲'",
+            studentReply: "Haha! No! THREE brothers! T-H-R-E-E!",
+            metrics: { independence: 85, carryover: 90, confidence: 95, awareness: "Optimal" },
+            analysis: "🌟 <strong>Exaggeration with Humor:</strong> Highly memorable contrast between non-standard and standard sound."
+          }
+        ]
+      },
+      "3": {
+        title: "'We' vs 'Ve' Confusion (/w/ vs /v/)",
+        targetSound: "/w/ (bilabial) vs /v/ (labiodental)",
+        initialStudent: "Ve are going to the cinema tonight.",
+        actions: [
+          {
+            type: "direct",
+            btnLabel: "Direct Correction: 'We, not Ve'",
+            desc: "Provide the correct pronunciation.",
+            studentReply: "We are going...",
+            metrics: { independence: 20, carryover: 25, confidence: 55, awareness: "Low" },
+            analysis: "⚠️ <strong>Direct Feedback:</strong> Misses the opportunity to activate muscle memory or peg cues."
+          },
+          {
+            type: "peg",
+            btnLabel: "Peg Cue: 'Two lips or teeth?'",
+            desc: "Remind with the Peg System visual rule.",
+            studentReply: "Ah! 'W' uses two rounded lips, no teeth! WE are going to the cinema!",
+            metrics: { independence: 90, carryover: 95, confidence: 90, awareness: "Optimal" },
+            analysis: "🏆 <strong>Peg System Cue:</strong> Connects letter shape/articulation anchor to instantaneous self-correction!"
+          },
+          {
+            type: "questioning",
+            btnLabel: "Questioning Repetition",
+            desc: "'VE are going? ↗'",
+            studentReply: "Wait... Ve? No, WE are going!",
+            metrics: { independence: 70, carryover: 75, confidence: 75, awareness: "High" },
+            analysis: "✨ <strong>Questioning Repetition:</strong> Cues student to switch articulators without teacher re-demonstration."
+          },
+          {
+            type: "exaggerate",
+            btnLabel: "Exaggerate: 'VVVVVVVV-are going?'",
+            desc: "Buzz the /v/ sound noticeably.",
+            studentReply: "Oops, my teeth touched my lip! WE are going!",
+            metrics: { independence: 80, carryover: 85, confidence: 85, awareness: "Very High" },
+            analysis: "🔥 <strong>Tactile Exaggeration:</strong> Helps student feel the physical friction error."
+          }
+        ]
+      }
+    };
+
+    let activeScenarioId = "1";
+
+    function loadScenario(scenarioId) {
+      activeScenarioId = scenarioId;
+      const sc = scenarios[scenarioId];
+
+      // Reset Dialogue Box
+      const dialogueBox = document.getElementById('dialogue-box');
+      dialogueBox.innerHTML = `
+        <div class="flex gap-3 items-start bg-slate-900 p-3 rounded-xl border border-slate-800">
+          <div class="w-8 h-8 rounded-full bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center text-indigo-300 font-bold text-xs shrink-0">
+            ST
+          </div>
+          <div>
+            <div class="text-xs font-semibold text-slate-400">Student (Initial Utterance)</div>
+            <div class="text-sm font-medium text-white mt-0.5">"${sc.initialStudent}"</div>
+          </div>
+        </div>
+      `;
+
+      // Reset Metrics
+      updateMetrics({ independence: 15, carryover: 15, confidence: 50, awareness: "Low" });
+
+      // Load Action Buttons
+      const btnContainer = document.getElementById('teacher-action-buttons');
+      btnContainer.innerHTML = '';
+
+      sc.actions.forEach((act, idx) => {
+        const btn = document.createElement('button');
+        btn.className = "p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-indigo-500 rounded-xl text-left transition text-xs flex flex-col justify-between group";
+        btn.onclick = () => executeTeacherAction(idx);
+        btn.innerHTML = `
+          <div class="font-bold text-indigo-300 group-hover:text-white">${act.btnLabel}</div>
+          <div class="text-[10px] text-slate-400 mt-1">${act.desc}</div>
+        `;
+        btnContainer.appendChild(btn);
+      });
+
+      // Hide Feedback Banner
+      document.getElementById('sim-feedback-banner').classList.add('hidden');
+    }
+
+    function executeTeacherAction(actionIdx) {
+      const sc = scenarios[activeScenarioId];
+      const act = sc.actions[actionIdx];
+
+      const dialogueBox = document.getElementById('dialogue-box');
+      
+      // Add Teacher Turn
+      const teacherTurn = document.createElement('div');
+      teacherTurn.className = "flex gap-3 items-start bg-indigo-950/60 p-3 rounded-xl border border-indigo-800/60 my-2";
+      teacherTurn.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xs shrink-0">
+          T
+        </div>
+        <div>
+          <div class="text-xs font-semibold text-indigo-300">Teacher ('Reminding' Action)</div>
+          <div class="text-sm font-medium text-white mt-0.5">${act.desc}</div>
+        </div>
+      `;
+      dialogueBox.appendChild(teacherTurn);
+
+      // Add Student Response Turn
+      const studentTurn = document.createElement('div');
+      studentTurn.className = "flex gap-3 items-start bg-emerald-950/40 p-3 rounded-xl border border-emerald-800/40 my-2";
+      studentTurn.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-xs shrink-0">
+          ST
+        </div>
+        <div>
+          <div class="text-xs font-semibold text-emerald-400">Student (Self-Correction Step)</div>
+          <div class="text-sm font-medium text-emerald-100 mt-0.5">"${act.studentReply}"</div>
+        </div>
+      `;
+      dialogueBox.appendChild(studentTurn);
+
+      // Scroll to bottom
+      dialogueBox.scrollTop = dialogueBox.scrollHeight;
+
+      // Update Metrics
+      updateMetrics(act.metrics);
+
+      // Display Pedagogical Feedback Banner
+      const feedbackBanner = document.getElementById('sim-feedback-banner');
+      document.getElementById('sim-feedback-desc').innerHTML = act.analysis;
+      feedbackBanner.classList.remove('hidden');
+    }
+
+    function updateMetrics(metrics) {
+      document.getElementById('metric-independence').textContent = metrics.independence + '%';
+      document.getElementById('metric-carryover').textContent = metrics.carryover + '%';
+      document.getElementById('metric-confidence').textContent = metrics.confidence + '%';
+      document.getElementById('metric-awareness').textContent = metrics.awareness;
+    }
+
+    // -------------------------------------------------------------------------
+    // TECHNIQUE LAB DISPLAY ENGINE
+    // -------------------------------------------------------------------------
+    const labTechData = {
+      peg: {
+        title: "1. The 'Peg' System",
+        icon: "fa-thumbtack",
+        color: "text-indigo-400",
+        quote: "Use a simple visual or sensory word to remember the cause of the problem.",
+        content: `
+          <div class="space-y-4 text-sm">
+            <p class="text-slate-300">A "Peg" acts as a vivid mental hook that links sound production to an easy physical rule.</p>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+              <div class="font-bold text-indigo-300">Case Example: /w/ vs /v/ Confusion</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <div class="font-bold text-amber-400">/w/ Sound</div>
+                  <p class="text-xs text-slate-300 mt-1 font-mono">Peg Rule: "DON'T TOUCH"</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Lips round forward; upper teeth do NOT touch the lower lip.</p>
+                </div>
+                <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <div class="font-bold text-emerald-400">/v/ Sound</div>
+                  <p class="text-xs text-slate-300 mt-1 font-mono">Peg Rule: "TOUCH"</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Upper front teeth touch lower lip to make friction.</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 italic">When a student makes an error, the teacher simply cues: "Remember your peg!"</p>
+          </div>
+        `
+      },
+      walk: {
+        title: "2. 'Walk' Through Sounds",
+        icon: "fa-shoe-prints",
+        color: "text-sky-400",
+        quote: "Break the sound down into sequential physical steps, like a dance routine.",
+        content: `
+          <div class="space-y-4 text-sm">
+            <p class="text-slate-300">Students "walk" through articulatory motions step-by-step to build conscious muscle memory.</p>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <div class="font-bold text-sky-300 mb-2">Step-by-Step Sequence for /v/:</div>
+              <ol class="space-y-2 text-xs text-slate-300">
+                <li class="flex items-center gap-2 bg-slate-800 p-2 rounded border border-slate-700">
+                  <span class="w-5 h-5 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center text-[10px]">1</span>
+                  Lower upper teeth against lower lip.
+                </li>
+                <li class="flex items-center gap-2 bg-slate-800 p-2 rounded border border-slate-700">
+                  <span class="w-5 h-5 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center text-[10px]">2</span>
+                  Tense lower lip slightly.
+                </li>
+                <li class="flex items-center gap-2 bg-slate-800 p-2 rounded border border-slate-700">
+                  <span class="w-5 h-5 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center text-[10px]">3</span>
+                  Blow air out while vibrating vocal cords.
+                </li>
+              </ol>
+            </div>
+          </div>
+        `
+      },
+      contrast: {
+        title: "3. Sound Contrast",
+        icon: "fa-arrows-left-right",
+        color: "text-emerald-400",
+        quote: "Say correct and incorrect versions back-to-back alternately to highlight the boundary.",
+        content: `
+          <div class="space-y-4 text-sm">
+            <p class="text-slate-300">By toggling between the standard and non-standard forms, the student feels and hears the precise contrast.</p>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-center space-y-3">
+              <div class="text-xs text-slate-400 font-mono">Interactive Minimal Pair Rhythm:</div>
+              <div class="flex items-center justify-center gap-4 text-lg font-bold">
+                <span class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-emerald-400">"WE"</span>
+                <i class="fa-solid fa-arrows-retweet text-slate-500"></i>
+                <span class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">"VE"</span>
+              </div>
+              <p class="text-xs text-slate-400">Student repeats: "We... Ve... We... Ve..." noticing exact lip placement changes.</p>
+            </div>
+          </div>
+        `
+      },
+      codewords: {
+        title: "4. Code Words (Color Vowels)",
+        icon: "fa-palette",
+        color: "text-amber-400",
+        quote: "Associate abstract vowel phonemes with distinct color words.",
+        content: `
+          <div class="space-y-4 text-sm">
+            <p class="text-slate-300">Vowels can be elusive to monitor. Associating sounds with vivid colors gives students a concrete mental code.</p>
+            <div class="grid grid-cols-2 gap-3 text-xs font-bold">
+              <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-200">
+                <div>/iː/ Sound</div>
+                <div class="text-lg font-black text-emerald-400 mt-1">GREEN</div>
+                <div class="text-[10px] text-slate-400 font-normal">e.g., see, meet, team</div>
+              </div>
+              <div class="p-3 rounded-xl bg-pink-950/80 border border-pink-500/40 text-pink-200">
+                <div>/ɪ/ Sound</div>
+                <div class="text-lg font-black text-pink-400 mt-1">PINK</div>
+                <div class="text-[10px] text-slate-400 font-normal">e.g., sit, bit, list</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-600 text-slate-200">
+                <div>/æ/ Sound</div>
+                <div class="text-lg font-black text-slate-100 mt-1">BLACK</div>
+                <div class="text-[10px] text-slate-400 font-normal">e.g., cat, map, plan</div>
+              </div>
+              <div class="p-3 rounded-xl bg-amber-950/80 border border-amber-500/40 text-amber-200">
+                <div>/ʌ/ Sound</div>
+                <div class="text-lg font-black text-amber-400 mt-1">MUSTARD</div>
+                <div class="text-[10px] text-slate-400 font-normal">e.g., cup, luck, bus</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      letters: {
+        title: "5. Associate Letters with Articulation",
+        icon: "fa-font",
+        color: "text-purple-400",
+        quote: "Use the graphic visual shape of written letters as physical articulation maps.",
+        content: `
+          <div class="space-y-4 text-sm">
+            <p class="text-slate-300">Connect orthographic letter visual shapes directly to oral motor positions.</p>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+              <div class="flex items-center gap-4 bg-slate-800 p-3 rounded-lg border border-slate-700">
+                <div class="text-3xl font-black text-indigo-400 font-serif">W</div>
+                <div class="text-xs text-slate-300">
+                  <strong class="text-white">Letter 'W':</strong> Has two rounded humps &bull; Reminds students to use <strong class="text-indigo-400">TWO rounded lips</strong>.
+                </div>
+              </div>
+              <div class="flex items-center gap-4 bg-slate-800 p-3 rounded-lg border border-slate-700">
+                <div class="text-3xl font-black text-purple-400 font-serif">V</div>
+                <div class="text-xs text-slate-300">
+                  <strong class="text-white">Letter 'V':</strong> Ends in a single bottom point &bull; Reminds students of <strong class="text-purple-400">ONE point of contact</strong> (upper teeth on lower lip).
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      analogies: {
+        title: "6. Use Analogies & Metaphors",
+        icon: "fa-utensils",
+        color: "text-pink-400",
+        quote: "Provide clear physical mental imagery to help position vocal tract articulators.",
+        content: `
+          <div class="space-y-4 text-sm">
+            <p class="text-slate-300">Vivid everyday metaphors give students immediate intuitive control over internal articulators.</p>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex items-start gap-3">
+              <div class="w-10 h-10 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center shrink-0 font-bold text-lg">
+                🥄
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">The "Spoon Tongue" Analogy (/θ/ & /ð/ sounds)</h4>
+                <p class="text-xs text-slate-300 mt-1">
+                  Tell the student to shape their tongue flattened like a <strong class="text-pink-400">spoon</strong> held gently just under the edge of the upper front teeth while blowing air out!
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function selectLabTech(techKey) {
+      const data = labTechData[techKey];
+      if (!data) return;
+
+      // Update Nav Button Styles
+      document.querySelectorAll('.lab-nav-btn').forEach(btn => {
+        btn.className = "lab-nav-btn w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-300 hover:bg-slate-800 transition";
+      });
+      const activeNavBtn = document.getElementById('lab-btn-' + techKey);
+      if (activeNavBtn) {
+        activeNavBtn.className = "lab-nav-btn w-full text-left p-3.5 rounded-xl border border-indigo-500/80 bg-indigo-950/40 text-white flex items-center justify-between transition";
+      }
+
+      // Render Display
+      const container = document.getElementById('lab-display-container');
+      container.innerHTML = `
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <i class="fa-solid ${data.icon} ${data.color} text-2xl"></i>
+            <h3 class="text-xl font-bold text-white">${data.title}</h3>
+          </div>
+          <p class="text-xs text-slate-400 italic mb-4">"${data.quote}"</p>
+          ${data.content}
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500">
+          <span>Source: Avery & Ehrlich (Ch. 14)</span>
+          <span class="text-indigo-400 font-semibold">Self-Correction Tool</span>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // KNOWLEDGE & PEDAGOGY QUIZ ENGINE
+    // -------------------------------------------------------------------------
+    const quizData = [
+      {
+        id: 1,
+        question: "What is the core definition of the 'Carry-Over' Problem in pronunciation teaching?",
+        options: [
+          "Students cannot imitate sounds accurately inside the classroom during drills.",
+          "Students achieve standard pronunciation in class, but revert to non-standard patterns outside.",
+          "Teachers carry over lesson plans from previous years without updating phonetics.",
+          "Students carry over native language vocabulary into target language grammar."
+        ],
+        answer: 1,
+        explanation: "According to Avery & Ehrlich (Ch. 14), the carry-over problem occurs when students produce standard pronunciation in class but revert to former habits immediately after leaving."
+      },
+      {
+        id: 2,
+        question: "How does Self-Correction differ fundamentally from Self-Monitoring?",
+        options: [
+          "Self-correction requires external teacher/peer cueing; self-monitoring is autonomous.",
+          "Self-monitoring occurs only in basic level students; self-correction is advanced.",
+          "Self-correction only applies to intonation; self-monitoring applies to consonants.",
+          "There is no difference; they are identical terms in TESOL research."
+        ],
+        answer: 0,
+        explanation: "Self-correction is the ability to fix an error *after* it has been pointed out by someone else. Self-monitoring is independent error recognition without external cues."
+      },
+      {
+        id: 3,
+        question: "When a student makes a pronunciation error on a sound they have already mastered, what should the teacher do?",
+        options: [
+          "Model the correct sound immediately several times.",
+          "Ignore the error completely so as not to interrupt fluency.",
+          "Use a 'reminding' technique (e.g., questioning repetition) to prompt self-correction.",
+          "Punish the student with grammar exercises."
+        ],
+        answer: 2,
+        explanation: "Avery & Ehrlich state that once students can produce the target sound, teachers should stop modeling and instead use 'reminding' techniques to shift responsibility to the student."
+      },
+      {
+        id: 4,
+        question: "According to Avery & Ehrlich, what should basic-level students focus on when self-monitoring?",
+        options: [
+          "Individual consonant segments like /θ/ and /ð/.",
+          "Global features like intonation, phrasing, and rhythm.",
+          "Complex phonetic transcription symbols.",
+          "Advanced academic vocabulary stress rules."
+        ],
+        answer: 1,
+        explanation: "Basic students should monitor general/global aspects (intonation, phrasing, rhythm) because these have the greatest impact on overall comprehensibility."
+      },
+      {
+        id: 5,
+        question: "Which of the following is an example of the 'Questioning Repetition' reminding technique?",
+        options: [
+          "Teacher says: 'Remember to touch your teeth to your lip!'",
+          "Teacher says: 'He went WHAT with a friend?'",
+          "Teacher repeats: 'Wiff a friend? ↗' with rising intonation.",
+          "Teacher writes the phonetic symbol on the whiteboard."
+        ],
+        answer: 2,
+        explanation: "Questioning Repetition involves repeating the student's non-standard output with rising intonation ('Wiff a friend? ↗') to signal an error."
+      }
+    ];
+
+    let userQuizAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-questions-container');
+      container.innerHTML = '';
+
+      quizData.forEach((q, qIdx) => {
+        const qCard = document.createElement('div');
+        qCard.className = "glass-card p-5 rounded-2xl border border-slate-800 space-y-3";
+        
+        let optionsHTML = '';
+        q.options.forEach((opt, optIdx) => {
+          const isSelected = userQuizAnswers[q.id] === optIdx;
+          const isSubmitted = userQuizAnswers[q.id] !== undefined;
+          let btnStyle = "bg-slate-800/80 border-slate-700/80 text-slate-300 hover:bg-slate-700/50";
+
+          if (isSubmitted) {
+            if (optIdx === q.answer) {
+              btnStyle = "bg-emerald-950/80 border-emerald-500/80 text-emerald-200 font-semibold";
+            } else if (isSelected && optIdx !== q.answer) {
+              btnStyle = "bg-red-950/80 border-red-500/80 text-red-200";
+            }
+          }
+
+          optionsHTML += `
+            <button onclick="submitQuizAnswer(${q.id}, ${optIdx})" class="w-full text-left p-3 rounded-xl border text-xs sm:text-sm transition flex items-center justify-between ${btnStyle}">
+              <span>${String.fromCharCode(65 + optIdx)}. ${opt}</span>
+              ${isSubmitted && optIdx === q.answer ? '<i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>' : ''}
+              ${isSubmitted && isSelected && optIdx !== q.answer ? '<i class="fa-solid fa-circle-xmark text-red-400 text-base"></i>' : ''}
+            </button>
+          `;
+        });
+
+        let explanationHTML = '';
+        if (userQuizAnswers[q.id] !== undefined) {
+          explanationHTML = `
+            <div class="mt-3 p-3 rounded-xl bg-indigo-950/40 border border-indigo-800/40 text-xs text-indigo-200">
+              💡 <strong>Explanation:</strong> ${q.explanation}
+            </div>
+          `;
+        }
+
+        qCard.innerHTML = `
+          <div class="font-bold text-white text-sm sm:text-base flex items-start gap-2">
+            <span class="text-indigo-400">${qIdx + 1}.</span>
+            <span>${q.question}</span>
+          </div>
+          <div class="space-y-2 mt-2">
+            ${optionsHTML}
+          </div>
+          ${explanationHTML}
+        `;
+
+        container.appendChild(qCard);
+      });
+
+      calculateScore();
+    }
+
+    function submitQuizAnswer(qId, optIdx) {
+      userQuizAnswers[qId] = optIdx;
+      renderQuiz();
+    }
+
+    function calculateScore() {
+      let score = 0;
+      quizData.forEach(q => {
+        if (userQuizAnswers[q.id] === q.answer) {
+          score++;
+        }
+      });
+      document.getElementById('quiz-score').textContent = score;
+    }
+
+    function resetQuiz() {
+      userQuizAnswers = {};
+      renderQuiz();
+    }
+
+    // -------------------------------------------------------------------------
+    // INITIALIZATION ON LOAD
+    // -------------------------------------------------------------------------
+    window.onload = function() {
+      initSlideDots();
+      updateSlideUI();
+      loadScenario("1");
+      selectLabTech("peg");
+      renderQuiz();
+    };
+  </script>
+</body>
+</html>
